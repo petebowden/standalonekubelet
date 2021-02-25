@@ -130,3 +130,7 @@ EOF
 
 systemctl enable kubelet --now
 ```
+Once this is up you can add a podspec to /etc/kubernetes/manifest There is a sample podspec attached.
+
+
+Thank you to dmesser and his tutorial at: https://gist.github.com/dmesser/ffa556788660a7d23999427be4797d38 
