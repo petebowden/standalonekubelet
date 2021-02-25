@@ -25,7 +25,8 @@ Manual steps (for now - goal is kubelet should run in container).
 
 ssh to node core@<ip>
 
-```sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-modular.repo
+```
+sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-modular.repo
 sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-updates-modular.repo`
 
 rpm-ostree install cri-o kubernetes-node cri-tools
