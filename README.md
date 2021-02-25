@@ -14,6 +14,7 @@ pull latest image
     quay.io/coreos/coreos-installer:release download -f iso`
 
 embed ign into installer
+
 `podman run --privileged --pull=always --rm -v .:/data -w /data\
     quay.io/coreos/coreos-installer:release iso ignition embed -i /data/iso-install.ign fedora-coreos-33.20210201.3.0-live.x86_64.iso`
 
@@ -24,8 +25,8 @@ Manual steps (for now - goal is kubelet should run in container).
 
 ssh to node core@<ip>
 
-`sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-modular.repo
-sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-updates-modular.repo
+```sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-modular.repo
+sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-updates-modular.repo`
 
 rpm-ostree install cri-o kubernetes-node cri-tools
 
@@ -115,4 +116,4 @@ cat <<EOF > /etc/cni/net.d/100-crio-bridge.conflist
 EOF
 
 systemctl enable kubelet --now
-`
+```
