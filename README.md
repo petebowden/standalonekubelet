@@ -1,11 +1,12 @@
 # standalonekubelet
 Tested on F32 - mostly copied from FCOS docs
- download fcos image
+download fcos image
 
 
 `podman pull quay.io/coreos/fcct:release`
 
 Modify fcc to include your pub key
+convert fcc to ign
 
 `podman run -i --rm quay.io/coreos/fcct:release --pretty --strict < iso-install.fcc > iso-install.ign`
 
