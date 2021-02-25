@@ -6,16 +6,17 @@ download fcos image
 `podman pull quay.io/coreos/fcct:release`
 
 Modify fcc to include your pub key
-convert fcc to ign
+
+convert fcc to ign\
 
 `podman run -i --rm quay.io/coreos/fcct:release --pretty --strict < iso-install.fcc > iso-install.ign`
 
-pull latest image
+pull latest image\
 
 `podman run --privileged --pull=always --rm -v .:/data -w /data \
     quay.io/coreos/coreos-installer:release download -f iso`
 
-embed ign into installer
+embed ign into installer\
 
 `podman run --privileged --pull=always --rm -v .:/data -w /data\
     quay.io/coreos/coreos-installer:release iso ignition embed -i /data/iso-install.ign fedora-coreos-33.20210201.3.0-live.x86_64.iso`
@@ -25,7 +26,7 @@ embed ign into installer
 Container should boot, installer should run and then reboot.
 Manual steps (for now - goal is kubelet should run in container).
 
-ssh to node core@\<ip\>
+ssh to node core@\<ip\>\
 
 ```
 sed -i -z s/enabled=0/enabled=1/ /etc/yum.repos.d/fedora-modular.repo
