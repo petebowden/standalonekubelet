@@ -7,11 +7,11 @@ download fcos image
 
 Modify fcc to include your pub key
 
-convert fcc to ign\
+convert fcc to ign
 
 `podman run -i --rm quay.io/coreos/fcct:release --pretty --strict < iso-install.fcc > iso-install.ign`
 
-pull latest image\
+pull latest image
 
 `podman run --privileged --pull=always --rm -v .:/data -w /data \
     quay.io/coreos/coreos-installer:release download -f iso`
