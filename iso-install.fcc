@@ -1,0 +1,53 @@
+variant: fcos
+version: 1.3.0
+passwd:
+  users:
+  - name: core
+    ssh_authorized_keys:
+      - ssh-rsa <SSH KEY HERE>
+systemd:
+  units:
+    - name: install.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Run CoreOS Installer
+        Requires=coreos-installer-pre.target
+        After=coreos-installer-pre.target
+        OnFailure=emergency.target
+        OnFailureJobMode=replace-irreversibly
+
+        # Can be removed if install doesn't reference remote resources with
+        # --stream, --image-url, or --ignition-url
+        #After=network-online.target
+        #Wants=network-online.target
+
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/coreos-installer install /dev/vda -i /home/core/config.ign
+        ExecStart=/usr/bin/systemctl --no-block reboot
+        StandardOutput=kmsg+console
+        StandardError=kmsg+console
+
+        [Install]
+        RequiredBy=default.target
+storage:
+    files:
+        - path: /home/core/config.ign
+          contents:
+            inline: |
+                {
+                "ignition": {
+                    "version": "3.2.0"
+                },
+                "passwd": {
+                    "users": [
+                    {
+                        "name": "core",
+                        "sshAuthorizedKeys": [
+                        "ssh-rsa <SSH KEY HERE>"
+                        ]
+                    }
+                    ]
+                }
+                }
