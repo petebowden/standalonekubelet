@@ -40,6 +40,7 @@ Need to reboot to have access to newly installed binaries
 ```
 systemctl reboot
 ```
+log back in
 
 ```
 systemctl mask docker
