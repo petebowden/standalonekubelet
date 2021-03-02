@@ -21,7 +21,7 @@ embed ign into installer
 `podman run --privileged --pull=always --rm -v .:/data -w /data\
     quay.io/coreos/coreos-installer:release iso ignition embed -i /data/iso-install.ign fedora-coreos-33.20210201.3.0-live.x86_64.iso`
 
-`virt-install --name cdrom --ram 4500 --vcpus 2 --disk size=20,bus=virtio,format=qcow20 --accelerate --cdrom /path/to/fedora-coreos-32.20200809.2.1-live.x86_64.iso --network default`
+`virt-install --name cdrom --ram 4500 --vcpus 2 --disk size=20,bus=virtio,format=qcow2 --accelerate --cdrom /path/to/fedora-coreos-32.20200809.2.1-live.x86_64.iso --network default`
 
 Container should boot, installer should run and then reboot.
 Manual steps (for now - goal is kubelet should run in container).
