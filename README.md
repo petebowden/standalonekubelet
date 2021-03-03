@@ -1,7 +1,40 @@
 # standalonekubelet
+Two Options to get up and running 1. Use a pre-built image or 1. use vanilla FCOS image and apply configs to it. Both options are described below. Using the pre-built image will get you up and running the fastest.
+
+
+# Use pre-built image
+
+
+Pull ISO from: https://github.com/petebowden/fedora-coreos-config/releases/latest/ or use instructions below to build.
+
+
+Modify config.fcc to include your pub key. config.fcc is used for the installation of fcos.
+
+`podman run -i --rm quay.io/coreos/fcct:release --pretty --strict < config.fcc > config.ign`
+
+Copy the contents of config.ign inline into iso-install.fcc in the storage-> files-> path: /home/core/config.ign" section. iso-install.fcc is used for the boot of the installer ISO. Optionally you can add your pub key to this fcc if you need to log in to troubleshoot the install.
+
+Convert `iso-install.fcc` to `iso-install.ign`:
+
+`podman run -i --rm quay.io/coreos/fcct:release --pretty --strict < iso-install.fcc > iso-install.ign`
+
+
+Embed `iso-install.ign` into installer:
+
+`podman run --privileged --pull=always --rm -v .:/data -w /data quay.io/coreos/coreos-installer:release iso ignition embed -i /data/iso-install.ign fedora-coreos-33.20210302.dev.4-live.x86_64.iso`
+
+Start VM with configured ISO:
+
+`sudo virt-install --name fcos --ram 4500 --vcpus 2 --disk size=20,bus=virtio,format=qcow2 --accelerate --cdrom /path/to/ffedora-coreos-33.20210302.dev.4-live.x86_64.iso --network default`
+
+Once install is finished the VM will reboot, at which point you can add a podspec to `/etc/kubernetes/manifest`. There is a sample (echoserver.yaml) podspec attached.
+## Build your own image process
+Pre-built image was created using coreos-assembler with modified configs. Configs can be found at: https://github.com/petebowden/fedora-coreos-config To build this image yourself, follow the instructions for [building an image with coreos-assembler](https://coreos.github.io/coreos-assembler/building-fcos/), but pull the custom configs instead of the defaults at the "Initializing Step". After the build step, to generate a live ISO execute: `cosa buildextend-metal4k` and then `cosa buildextend-live`. This will result in a bootable ISO.
+
+# Manual configuration
+
 Tested on F32 - mostly copied from FCOS docs
 download fcos image
-
 
 `podman pull quay.io/coreos/fcct:release`
 
