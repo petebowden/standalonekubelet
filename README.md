@@ -1,5 +1,5 @@
 # standalonekubelet
-Two Options to get up and running 1. Use a pre-built image or 1. use vanilla FCOS image and apply configs to it. Both options are described below. Using the pre-built image will get you up and running the fastest.
+Two Options to get up and running 1. Use a pre-built image or 2. use vanilla FCOS image and apply configs to it. Both options are described below. Using the pre-built image will get you up and running the fastest.
 
 
 # Use pre-built image
